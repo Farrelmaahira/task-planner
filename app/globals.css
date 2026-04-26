@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   DESIGN TOKENS — Light Mode (default)
+   Palet: Sage-Indigo (eye-pleasing, calm)
+   ============================================ */
+:root {
+  --bg-base: #f8f7f4;
+  --bg-surface: #ffffff;
+  --bg-surface-hover: #f1efe9;
+  --bg-sidebar: #f0ede8;
+  --border: #e4e0d9;
+  --foreground: #1c1917;
+  --muted: #78716c;
+  --accent: #6366f1;        /* indigo-500 */
+  --accent-hover: #4f46e5;  /* indigo-600 */
+  --accent-soft: #eef2ff;   /* indigo-50 */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --danger: #ef4444;
+}
+
+/* ============================================
+   DESIGN TOKENS — Dark Mode
+   Palet: Dark Charcoal + Indigo Accent
+   ============================================ */
+.dark {
+  --bg-base: #111110;
+  --bg-surface: #1c1b19;
+  --bg-surface-hover: #252421;
+  --bg-sidebar: #161513;
+  --border: #2d2b28;
+  --foreground: #f5f4f0;
+  --muted: #908d88;
+  --accent: #818cf8;        /* indigo-400 */
+  --accent-hover: #6366f1;  /* indigo-500 */
+  --accent-soft: #1e1b4b;   /* indigo-950 */
+  --success: #34d399;
+  --warning: #fbbf24;
+  --danger: #f87171;
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--foreground);
+  transition: background-color 0.2s ease, color 0.2s ease;
+  min-height: 100vh;
+}
+
+/* ============================================
+   UTILITY CLASSES (Semantic Design System)
+   ============================================ */
+@layer utilities {
+  .bg-base       { background-color: var(--bg-base); }
+  .bg-surface    { background-color: var(--bg-surface); }
+  .bg-surface-hover { background-color: var(--bg-surface-hover); }
+  .bg-sidebar    { background-color: var(--bg-sidebar); }
+  .bg-accent     { background-color: var(--accent); }
+  .bg-accent-soft{ background-color: var(--accent-soft); }
+
+  .border-base   { border-color: var(--border); }
+  .text-foreground { color: var(--foreground); }
+  .text-muted    { color: var(--muted); }
+  .text-accent   { color: var(--accent); }
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-up { animation: fadeUp 0.3s ease forwards; }
+.animate-slide-in { animation: slideIn 0.25s ease forwards; }
+.animate-scale-in { animation: scaleIn 0.2s ease forwards; }
