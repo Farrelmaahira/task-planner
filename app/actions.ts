@@ -4,6 +4,12 @@ import { prisma } from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
 import { TaskFormData } from '@/types'
 
+export interface CategoryFormData {
+  name: string
+  color: string
+  icon?: string
+}
+
 // --- GET ALL TASKS (with optional category filter) ---
 export async function getTasks(categoryId?: string) {
   return prisma.task.findMany({
@@ -105,4 +111,41 @@ export async function getCategories() {
       _count: { select: { tasks: true } },
     },
   })
+}
+
+// --- CREATE CATEGORY ---
+export async function createCategory(data: CategoryFormData) {
+  await prisma.category.create({
+    data: {
+      name: data.name,
+      color: data.color,
+      icon: data.icon || null,
+    },
+  })
+  revalidatePath('/')
+  revalidatePath('/categories')
+  revalidatePath('/tasks')
+}
+
+// --- UPDATE CATEGORY ---
+export async function updateCategory(id: string, data: CategoryFormData) {
+  await prisma.category.update({
+    where: { id },
+    data: {
+      name: data.name,
+      color: data.color,
+      icon: data.icon || null,
+    },
+  })
+  revalidatePath('/')
+  revalidatePath('/categories')
+  revalidatePath('/tasks')
+}
+
+// --- DELETE CATEGORY ---
+export async function deleteCategory(id: string) {
+  await prisma.category.delete({ where: { id } })
+  revalidatePath('/')
+  revalidatePath('/categories')
+  revalidatePath('/tasks')
 }

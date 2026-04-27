@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { LayoutDashboard, ListTodo, Tag, CheckCircle2 } from 'lucide-react'
+import { LayoutDashboard, ListTodo, Tag, CheckCircle2, Settings2 } from 'lucide-react'
 import { ThemeToggle } from './ThemeToggle'
 
 interface Category {
@@ -19,6 +19,7 @@ export function Sidebar({ categories }: { categories: Category[] }) {
   const navItems = [
     { href: '/', label: 'Dashboard', icon: LayoutDashboard },
     { href: '/tasks', label: 'Semua Kegiatan', icon: ListTodo },
+    { href: '/categories', label: 'Kategori', icon: Tag },
   ]
 
   return (
@@ -78,10 +79,22 @@ export function Sidebar({ categories }: { categories: Category[] }) {
 
         {/* Categories */}
         <div className="pt-4">
-          <p className="text-xs font-semibold uppercase tracking-wider px-2 mb-2" style={{ color: 'var(--muted)' }}>
-            <Tag size={10} className="inline mr-1" />
-            Kategori
-          </p>
+          <div className="flex items-center justify-between px-2 mb-2">
+            <p className="text-xs font-semibold uppercase tracking-wider" style={{ color: 'var(--muted)' }}>
+              <Tag size={10} className="inline mr-1" />
+              Kategori
+            </p>
+            <Link
+              href="/categories"
+              className="flex items-center gap-0.5 text-xs transition-colors"
+              style={{ color: 'var(--muted)' }}
+              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--accent)' }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = 'var(--muted)' }}
+            >
+              <Settings2 size={11} />
+              <span>Kelola</span>
+            </Link>
+          </div>
           {categories.map((cat) => {
             const isActive = pathname === `/tasks?category=${cat.id}`
             return (

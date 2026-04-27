@@ -1,23 +1,21 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Category {
   id        String   @id @default(cuid())
   name      String   @unique
-  color     String   // hex color, e.g. "#6366f1"
-  icon      String?  // optional emoji icon
-  tasks     Task[]
+  color     String
+  icon      String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  tasks     Task[]
 }
 
 model Task {
@@ -28,9 +26,9 @@ model Task {
   isCompleted Boolean   @default(false)
   priority    Priority  @default(MEDIUM)
   categoryId  String
-  category    Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
+  category    Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 }
 
 enum Priority {
